@@ -1,5 +1,5 @@
 mod config;
-// mod server;
+mod server;
 // mod client;
 mod protocol;
 
@@ -26,7 +26,7 @@ async fn main() -> Result<()> {
                 .unwrap_or(5000);
             // server::run_listener(port).await?;
         }
-l       "send" => {
+        "send" => {
             if args.len() < 4 {
                 anyhow::bail!("send requires <addr:port> <file>");
             }
