@@ -1,7 +1,7 @@
 mod config;
 // mod server;
 // mod client;
-// mod protocol;
+mod protocol;
 
 use anyhow::{Ok, Result};
 use std::{net::SocketAddr, path::PathBuf};
@@ -26,7 +26,7 @@ async fn main() -> Result<()> {
                 .unwrap_or(5000);
             // server::run_listener(port).await?;
         }
-        "send" => {
+l       "send" => {
             if args.len() < 4 {
                 anyhow::bail!("send requires <addr:port> <file>");
             }
