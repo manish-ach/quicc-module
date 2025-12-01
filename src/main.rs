@@ -1,7 +1,7 @@
+mod client;
 mod config;
-mod server;
-// mod client;
 mod protocol;
+mod server;
 
 use anyhow::{Ok, Result};
 use std::{net::SocketAddr, path::PathBuf};
@@ -24,7 +24,7 @@ async fn main() -> Result<()> {
                 .get(2)
                 .and_then(|s| s.parse::<u16>().ok())
                 .unwrap_or(5000);
-            // server::run_listener(port).await?;
+            server::receiver::run_listener(port).await?;
         }
         "send" => {
             if args.len() < 4 {
@@ -32,7 +32,7 @@ async fn main() -> Result<()> {
             }
             let addr: SocketAddr = args[2].parse()?;
             let file = PathBuf::from(&args[3]);
-            // client::send_file(addr, file).await?;
+            client::sender::send_file(addr, file).await?;
         }
         _ => eprintln!("unknown command"),
     }

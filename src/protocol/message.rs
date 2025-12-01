@@ -13,7 +13,8 @@ pub async fn write_header<W: AsyncWriteExt + Unpin>(
     Ok(())
 }
 
-pub async fn read_header<R: AsyncReadExt + Unpin>(mut reader: R) -> Result<(String, u64)> {
+pub async fn read_header<R: AsyncReadExt + Unpin>(
+    mut reader: R) -> Result<(String, u64)> {
     let name_len = reader.read_u16().await?;
     let mut name = vec![0u8; name_len as usize];
     reader.read_exact(&mut name).await?;

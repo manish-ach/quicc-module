@@ -40,7 +40,11 @@ async fn handle_connection(conn: quinn::Connection) -> Result<()> {
         let (filename, size) = read_header(&mut recv).await?;
         println!("Receiving {} ({} bytes)", filename, size);
 
-        let mut file = File::create(format!("received-{filename}")).await?;
+        // Create output directory if it doesn't exist
+        tokio::fs::create_dir_all("output").await?;
+        
+        let output_path = format!("output/{}", filename);
+        let mut file = File::create(&output_path).await?;
         let mut remaining = size;
         let mut buf = vec![0u8; 64 * 1024];
 
